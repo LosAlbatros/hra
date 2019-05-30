@@ -30,24 +30,28 @@ def mapa():
             else:
                   a+=i
       generate(list)
-      for i in list:
-            for j in i:
-                  print(j,end=" ")
-            print(" ")
+      x=10
+      y=10
+      while list[(y-10)//11][(x-10)//11]<4:
+            if x+11<len(list)*11+10:
+                  x+=11
+            else:
+                  x=10
+                  y+=11
 mapa()
 BLACK   = (  0,   0,   0)
 BLUE    = (  0,   0, 255)
 GREEN   = (  0, 200,   0)
 WHITE   = (255, 255, 255)
-DARKGREEN   = (  0, 100,   0)
+DARKGREEN   = (  0, 120,   0)
 screen=Tk()
 WIDTH=screen.winfo_screenwidth()
 HEIGHT=screen.winfo_screenheight()
 screen.destroy()
 pygame.init()
 clock = pygame.time.Clock()
-display = pygame.display.set_mode([WIDTH, HEIGHT])
-pygame.display.set_caption('Generátor mapy')
+display = pygame.display.set_mode([0,0],pygame.FULLSCREEN)
+pygame.display.set_caption('Test #3')
 x=10
 y=10
 smer=False
@@ -58,7 +62,21 @@ font = pygame.font.SysFont("comicsansms", 29)
 text = font.render("START", True, WHITE)
 font2 = pygame.font.SysFont("comicsansms", 23)
 text2 = font2.render("New Map", True, BLACK)
-
+font3 = pygame.font.SysFont("comicsansms", 34)
+text3 = font3.render("EXIT", True, WHITE)
+fontnazev = pygame.font.SysFont("comicsansms", 80)
+textInGame = font3.render("BACK",True,(WHITE))
+nazev = fontnazev.render("Nazev této hry (logo)", True, WHITE)
+try:
+      grass=pygame.image.load('textury/travnik.png')
+      water=pygame.image.load('textury/voda.png')
+      mountine=pygame.image.load('textury/hora.png')
+      tree=pygame.image.load('textury/les.png')
+except:
+      grass=pygame.image.load('generování map/textury/travnik.png')
+      water=pygame.image.load('generování map/textury/voda.png')
+      mountine=pygame.image.load('generování map/textury/hora.png')
+      tree=pygame.image.load('generování map/textury/les.png')
 while True:     
       display.fill(BLACK)
       for event in pygame.event.get():
@@ -87,75 +105,97 @@ while True:
                         if event.key == K_ESCAPE:
                               pygame.quit()
                               sys.exit()
-            if event.type == KEYUP:
-                        if event.key == K_s:
-                              smer=False
-                        if event.key == K_w:
-                              smer=False
-                        if event.key == K_a:
-                              smer=False
-                        if event.key == K_d:
-                              smer=False
-                        if event.key == K_DOWN:
-                              smer=False
-                        if event.key == K_UP:
-                              smer=False
-                        if event.key == K_LEFT:
-                              smer=False
-                        if event.key == K_RIGHT:
-                              smer=False
             if event.type == MOUSEBUTTONDOWN:
-                  if mouse[0] > 150 and mouse[0] < 250 and mouse[1] > 450 and mouse[1] < 500:
+                  if mouse[0] > 150 and mouse[0] < 250 and mouse[1] > 450 and mouse[1] < 500 and hraZacala==False:
                         zacatekHry()
-                  if mouse[0] > 350 and mouse[0] < 450 and mouse[1] > 450 and mouse[1] < 500:
+                  if mouse[0] > 300 and mouse[0] < 400 and mouse[1] > 450 and mouse[1] < 500 and hraZacala==False:
                         generateList(GrafickeRozhrani=0)
                         mapa()
-                        x=10
-                        y=10
+                  if mouse[0] > 450 and mouse[0] < 550 and mouse[1] > 450 and mouse[1] < 500 and hraZacala==False:
+                        pygame.quit()
+                        sys.exit()
+                  if mouse[0] > 750 and mouse[0] < 850 and mouse[1] > 10 and mouse[1] < 60 and hraZacala==True:
+                        konecHry()
       if hraZacala==True:
             if smer == 1:
                   if y+11>=len(list)*11+10:
-                        y=10
+                        if list[0][(x-10)//11]>3:
+                              y=10
                   else:
-                        y+=11
+                        if list[(y+1)//11][(x-10)//11]>3:
+                              y+=11
+                  smer=False
+                  # Pohyb směrem Dolů
+
+
             if smer == 2:
                   if y-11<=0:
-                        y=len(list)*11-1
+                        if list[len(list)-1][(x-10)//11]>3:
+                              y=len(list)*11-1
                   else:
-                        y-=11
+                        if list[(y-21)//11][(x-10)//11]>3:
+                              y-=11
+                  smer=False
+                  # Pohyb směrem Nahoru
+
+
             if smer == 3:
                   if x-11<=0:
-                        x=len(list)*11-1
+                        if list[(y-10)//11][len(list)-1]>3:
+                              x=len(list)*11-1
                   else:
-                        x-=11
+                        if list[(y-10)//11][(x-21)//11]>3:
+                              x-=11
+                  smer=False
+                  # Pohyb směrem Vleva
+
+
             if smer == 4:       
                   if x+11>=len(list)*11+10:
-                        x=10
+                        if list[(y-10)//11][0]>3:
+                              x=10
                   else:
-                        x+=11
+                        if list[(y-10)//11][(x+1)//11]>3:
+                              x+=11
+                  smer=False
+                  # Pohyb směrem Vpravo
+
+
             display.fill(BLACK)
             for i in range(len(list)):
                   for j in range(len(list[i])):
                         if list[i][j]<4:
-                              pygame.draw.rect(display,BLUE,(j*11+10,i*11+10,10,10))
-                        elif list[i][j]<12:
-                              pygame.draw.rect(display,GREEN,(j*11+10,i*11+10,10,10))
+                              display.blit(water,(j*11+10,i*11+10,10,10))
+                        elif list[i][j]<12: 
+                              display.blit(grass,(j*11+10,i*11+10,10,10))
                         elif list[i][j]<16:
-                              pygame.draw.rect(display,DARKGREEN,(j*11+10,i*11+10,10,10))
+                              display.blit(tree,(j*11+10,i*11+10,10,10))
                         else:
-                              pygame.draw.rect(display,(100, 100, 100),(j*11+10,i*11+10,10,10))
+                              display.blit(mountine,(j*11+10,i*11+10,10,10))
             pygame.draw.rect(display,BLACK,(x+2,y+2,6,6))
+            mouse=pygame.mouse.get_pos()
+            if mouse[0] > 750 and mouse[0] < 850 and mouse[1] > 10 and mouse[1] < 60:
+                  pygame.draw.rect(display, (0, 255, 0),(750,10,100,50))
+            else:
+                  pygame.draw.rect(display, (0, 150, 0),(750,10,100,50))
+            display.blit(textInGame,(755,10))
       else:
             mouse=pygame.mouse.get_pos()
             if mouse[0] > 150 and mouse[0] < 250 and mouse[1] > 450 and mouse[1] < 500:
                   pygame.draw.rect(display, (0, 255, 0),(150,450,100,50))
             else:
                   pygame.draw.rect(display, (0, 150, 0),(150,450,100,50))
-            if mouse[0] > 350 and mouse[0] < 450 and mouse[1] > 450 and mouse[1] < 500:
-                  pygame.draw.rect(display, (255, 255, 255),(350,450,100,50))
+            if mouse[0] > 300 and mouse[0] < 400 and mouse[1] > 450 and mouse[1] < 500:
+                  pygame.draw.rect(display, (255, 255, 255),(300,450,100,50))
             else:
-                  pygame.draw.rect(display, (100, 150, 100),(350,450,100,50))
+                  pygame.draw.rect(display, (100, 150, 100),(300,450,100,50))
+            if mouse[0] > 450 and mouse[0] < 550 and mouse[1] > 450 and mouse[1] < 500:
+                  pygame.draw.rect(display, (255, 0, 0),(450,450,100,50))
+            else:
+                  pygame.draw.rect(display, (150, 0, 0),(450,450,100,50))
+            display.blit(nazev, (150, 200))
             display.blit(text, (150, 454))
-            display.blit(text2, (350, 457))
+            display.blit(text2, (300, 457))
+            display.blit(text3, (455, 450))
       pygame.display.update()
-      clock.tick(10)
+      clock.tick(100)

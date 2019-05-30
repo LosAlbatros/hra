@@ -6,21 +6,22 @@ def generate(list,topLeft=[0,0],bottomRight=[0,0]):
     
     list[topLeft[1]][(topLeft[0]+bottomRight[0])//2]=(list[topLeft[1]][topLeft[0]]+list[topLeft[1]][bottomRight[0]])//2
 
-    list[topLeft[1]][(topLeft[0]+bottomRight[0])//2]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))
+    list[topLeft[1]][(topLeft[0]+bottomRight[0])//2]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))//2
     # prostřední horní 
 
     list[bottomRight[1]][(topLeft[0]+bottomRight[0])//2]=(list[bottomRight[1]][topLeft[0]]+list[bottomRight[1]][bottomRight[0]])//2 
 
-    list[bottomRight[1]][(topLeft[0]+bottomRight[0])//2]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))# prostřední spodní
+    list[bottomRight[1]][(topLeft[0]+bottomRight[0])//2]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))//2
+    # prostřední spodní
 
     list[(topLeft[1]+bottomRight[1])//2][topLeft[0]]=(list[topLeft[1]][topLeft[0]]+list[bottomRight[1]][topLeft[0]])//2 
 
-    list[(topLeft[1]+bottomRight[1])//2][topLeft[0]]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))
+    list[(topLeft[1]+bottomRight[1])//2][topLeft[0]]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))//2
     # prostřední levý
 
     list[(topLeft[1]+bottomRight[1])//2][bottomRight[0]]=(list[topLeft[1]][bottomRight[0]]+list[bottomRight[1]][bottomRight[0]])//2
 
-    list[(topLeft[1]+bottomRight[1])//2][bottomRight[0]]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))
+    list[(topLeft[1]+bottomRight[1])//2][bottomRight[0]]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))//2
     # prostřední pravý
 
     return middles(list,bottomRight=bottomRight,topLeft=topLeft)
@@ -29,7 +30,7 @@ def middles(list,topLeft,bottomRight):
 
     list[(topLeft[1]+bottomRight[1])//2][(topLeft[0]+bottomRight[0])//2]=(list[topLeft[1]][topLeft[0]]+list[topLeft[1]][bottomRight[0]]+list[bottomRight[1]][topLeft[0]]+list[bottomRight[1]][bottomRight[0]])//4 
 
-    list[(topLeft[1]+bottomRight[1])//2][(topLeft[0]+bottomRight[0])//2]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))
+    list[(topLeft[1]+bottomRight[1])//2][(topLeft[0]+bottomRight[0])//2]+=randint(-(bottomRight[1]-topLeft[1]),(bottomRight[1]-topLeft[1]))//2
     # střed
 
     if topLeft[0]+2>=bottomRight[0]:
