@@ -7,4 +7,5 @@ Nová mapa,
 Pohyb po mapě (Přes vodu nelze chodit),
 Textury,
 Klavesy (e,w,a,s,d,šipky,escape),
-přidání jmena nového hráče
+nového hráče,
+přepínaní mezi hráči
