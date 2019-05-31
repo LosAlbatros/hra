@@ -1,0 +1,8 @@
+Human
+Wizzard
+12
+140
+150
+298
+300
+"My power is infinite"

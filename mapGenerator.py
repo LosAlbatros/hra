@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from seznamGenerator import *
 # ----------- Vypočet středů ----------    
 def generate(list,topLeft=[0,0],bottomRight=[0,0]):

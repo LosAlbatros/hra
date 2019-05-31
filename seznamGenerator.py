@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from time import *
 from random import *
 from tkinter import *

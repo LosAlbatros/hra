@@ -1,4 +1,32 @@
+# -*- coding: utf-8 -*-
 from mapGenerator import *
+# ---------- Třídy ----------
+class Hrac:
+      def __init__(self,jmeno,rasa,typ,level,zivoty,zivoty2,mana,mana2,hlaska):
+            self.jmeno=jmeno
+            self.rasa=rasa
+            self.typ=typ
+            self.level=level
+            if level==0:
+                  self.level=1
+                  if typ=="Wizzard":
+                        self.zivoty=[20,20] 
+                        self.mana=[80,80]
+                  elif typ=="Ranger":      
+                        self.zivoty=[80,80]
+                        self.mana=[20,20]
+                  elif typ=="Warrior":
+                        self.zivoty=[100,100] 
+                        self.mana=[0,0]
+            else:
+                  self.zivoty=[zivoty,zivoty2] 
+                  self.mana=[mana,mana2]
+            self.hlaska=hlaska 
+            self.save()
+      def save(self):
+            ulozHrace(self.jmeno,self.rasa,self.typ,self.level,self.zivoty,self.mana,self.hlaska)
+      def __str__(self):
+            return self.jmeno + "\n" + self.rasa + "\n" + self.typ + "\n" + str(self.level) + "\n" + self.hlaska 
 # ---------- proměné ----------
 FPS=100
 rasa=""
@@ -13,19 +41,24 @@ GREEN       = (  0, 200,   0)
 WHITE       = (255, 255, 255)
 DARKGREEN   = (  0, 120,   0)
 seznamJmenHracu=nactiJmenaHrace()
+seznamHracu=[]
+for i in seznamJmenHracu:
+      seznamHracu.append(Hrac(i,nactiHrace(i)[0],nactiHrace(i)[1],nactiHrace(i)[2],nactiHrace(i)[3],nactiHrace(i)[4],nactiHrace(i)[5],nactiHrace(i)[6],nactiHrace(i)[7]))
 zadavani=False
 zad=""
-# ---------- Třídy ----------
-class Hrac:
-      def __init__(self,jmeno):
-            self.jmeno=jmeno
+var=""
+nextChar="m"
+cisloHrace=0
 # ---------- Funkce ---------- 
 def ulozVse():
       ulozJmenaHracu(seznamJmenHracu)
 
 
-def addCharacter(jmeno):
+def addCharacter(jmeno,rasa,typ):
       seznamJmenHracu.append(jmeno)
+      seznamHracu.append(Hrac(jmeno,rasa,typ,0,0,0,0,0,""))
+
+
 def character():
       global hraZacala
       hraZacala="Character"
@@ -73,6 +106,28 @@ def mapa():
                   x=10
                   y+=11
 
+def posledni(prom):
+      a=len(prom)
+      prom2=""
+      for i in range(a-1):
+            prom2+=prom[i]
+      return prom2
+
+
+def hracVypis(cisloHrace):
+      global seznamHracu
+      global display
+      a=seznamHracu[cisloHrace]
+      z=""
+      ret=[]
+      for i in a.__str__():
+            if i=="\n":
+                  ret.append(z)
+                  z=""
+            else:
+                  z+=i
+      ret.append(z)
+      return ret
 # ---------- Zadání funkcí a vytvoření okny pygame ----------
 mapa()
 
@@ -115,59 +170,196 @@ while True:
                   pygame.quit()
                   sys.exit()
             if zadavani==True:
+                  if event.type == KEYUP:
+                        if event.key == K_RSHIFT or event.key == K_LSHIFT:
+                              nextChar="m"
                   if event.type == KEYDOWN:
+                        if event.key == K_RSHIFT or event.key == K_LSHIFT:
+                              nextChar="V"
                         if event.key == K_a: 
-                              zad+="a"
+                              if nextChar=="V":
+                                    zad+="A"
+                              else:
+                                    zad+="a"
                         if event.key == K_b: 
-                              zad+="b"
+                              if nextChar=="V":
+                                    zad+="B"
+                              else:
+                                    zad+="b"
                         if event.key == K_c: 
-                              zad+="c"
+                              if nextChar=="V":
+                                    zad+="C"
+                              else:
+                                    zad+="c"
                         if event.key == K_d: 
-                              zad+="d"
+                              if nextChar=="V":
+                                    zad+="D"
+                              else:
+                                    zad+="d"
                         if event.key == K_e: 
-                              zad+="e"
+                              if nextChar=="V":
+                                    zad+="E"
+                              else:
+                                    zad+="e"
                         if event.key == K_g: 
-                              zad+="g"
+                              if nextChar=="V":
+                                    zad+="G"
+                              else:
+                                    zad+="g"
                         if event.key == K_h: 
-                              zad+="h"
+                              if nextChar=="V":
+                                    zad+="H"
+                              else:
+                                    zad+="h"
                         if event.key == K_i: 
-                              zad+="i"
+                              if nextChar=="V":
+                                    zad+="I"
+                              else:
+                                    zad+="i"
                         if event.key == K_j: 
-                              zad+="j"
+                              if nextChar=="V":
+                                    zad+="J"
+                              else:
+                                    zad+="j"
                         if event.key == K_k: 
-                              zad+="k"
+                              if nextChar=="V":
+                                    zad+="K"
+                              else:
+                                    zad+="k"
                         if event.key == K_l: 
-                              zad+="l"
+                              if nextChar=="V":
+                                    zad+="L"
+                              else:
+                                    zad+="l"
                         if event.key == K_m: 
-                              zad+="m"
+                              if nextChar=="V":
+                                    zad+="M"
+                              else:
+                                    zad+="m"
                         if event.key == K_n: 
-                              zad+="n"
+                              if nextChar=="V":
+                                    zad+="N"
+                              else:
+                                    zad+="n"
                         if event.key == K_o: 
-                              zad+="o"
+                              if nextChar=="V":
+                                    zad+="O"
+                              else:
+                                    zad+="o"
                         if event.key == K_p: 
-                              zad+="p"
+                              if nextChar=="V":
+                                    zad+="P"
+                              else:
+                                    zad+="p"
                         if event.key == K_q: 
-                              zad+="q"
+                              if nextChar=="V":
+                                    zad+="Q"
+                              else:
+                                    zad+="q"
                         if event.key == K_r: 
-                              zad+="r"
+                              if nextChar=="V":
+                                    zad+="R"
+                              else:
+                                    zad+="r"
                         if event.key == K_s: 
-                              zad+="s"
+                              if nextChar=="V":
+                                    zad+="S"
+                              else:
+                                    zad+="s"
                         if event.key == K_t: 
-                              zad+="t"
+                              if nextChar=="V":
+                                    zad+="T"
+                              else:
+                                    zad+="t"
                         if event.key == K_u: 
-                              zad+="u"
+                              if nextChar=="V":
+                                    zad+="U"
+                              else:
+                                    zad+="u"
                         if event.key == K_v: 
-                              zad+="v"
+                              if nextChar=="V":
+                                    zad+="V"
+                              else:
+                                    zad+="v"
                         if event.key == K_w: 
-                              zad+="w"
+                              if nextChar=="V":
+                                    zad+="W"
+                              else:
+                                    zad+="w"
                         if event.key == K_x: 
-                              zad+="y"
+                              if nextChar=="V":
+                                    zad+="X"
+                              else:
+                                    zad+="x"
+                        if event.key == K_y: 
+                              if nextChar=="V":
+                                    zad+="Z"
+                              else:
+                                    zad+="z"
                         if event.key == K_z: 
-                              zad+="z"
+                              if nextChar=="V":
+                                    zad+="Y"
+                              else:
+                                    zad+="y"
+                        if event.key == K_f: 
+                              if nextChar=="V":
+                                    zad+="F"
+                              else:
+                                    zad+="f"
                         if event.key == K_BACKSPACE: 
-                              zad=""
+                              zad=posledni(zad)
                         if event.key == K_SPACE: 
                               zad+=" "
+                        if event.key == K_1:
+                              if nextChar=="V":
+                                    zad+="1"
+                              else:
+                                    zad+="1"
+                        if event.key == K_2:
+                              if nextChar=="V":
+                                    zad+="2"
+                              else:
+                                    zad+="2"
+                        if event.key == K_3:
+                              if nextChar=="V":
+                                    zad+="3"
+                              else:
+                                    zad+="3"
+                        if event.key == K_4:
+                              if nextChar=="V":
+                                    zad+="4"
+                              else:
+                                    zad+="4"
+                        if event.key == K_5:
+                              if nextChar=="V":
+                                    zad+="5"
+                              else:
+                                    zad+="5"
+                        if event.key == K_6:
+                              if nextChar=="V":
+                                    zad+="6"
+                              else:
+                                    zad+="6"
+                        if event.key == K_7:
+                              if nextChar=="V":
+                                    zad+="7"
+                              else:
+                                    zad+="7"
+                        if event.key == K_8:
+                              if nextChar=="V":
+                                    zad+="8"
+                              else:
+                                    zad+="8"
+                        if event.key == K_9:
+                              if nextChar=="V":
+                                    zad+="9"
+                              else:
+                                    zad+="9"
+                        if event.key == K_0:
+                              if nextChar=="V":
+                                    zad+="0"
+                              else:
+                                    zad+="0"
                   if event.type == MOUSEBUTTONDOWN:
                         zadavani=False
             else:
@@ -209,9 +401,23 @@ while True:
                         if mouse[0] > 750 and mouse[0] < 850 and mouse[1] >  10 and mouse[1] <  60 and hraZacala==True:
                               konecHry()
                         if mouse[0] > 150 and mouse[0] < 250 and mouse[1] > 450 and mouse[1] < 500 and hraZacala=="Character":
-                              if zad!="" and zad not in seznamJmenHracu:
-                                    addCharacter(zad)
-                              zad=""
+                              if zad in seznamJmenHracu:
+                                    zad=""
+                                    var="Zadané jméno již existuje"
+                              elif len(zad)<3:
+                                    var="Zadané jméno je příliš krátké"
+                              elif len(zad)>20:
+                                    var="Zadané jméno je příliš dlouhé"
+                              elif rasa not in ['Human','Elf','Dwarf']:
+                                    var="Nezadal jsi rasu postavy"
+                              elif typ not in ['Warrior','Ranger','Wizzard']:
+                                    var="Nezadal jsi classu postavy"
+                              else:
+                                    addCharacter(zad,rasa,typ)
+                                    konecHry()
+                                    var=""
+                                    rasa=""
+                                    typ=""
                         if mouse[0] > 100 and mouse[0] < 200 and mouse[1] > 110 and mouse[1] < 160 and hraZacala=="Character":
                               rasa="Human"
                         if mouse[0] > 100 and mouse[0] < 200 and mouse[1] > 170 and mouse[1] < 220 and hraZacala=="Character":
@@ -219,7 +425,7 @@ while True:
                         if mouse[0] > 100 and mouse[0] < 200 and mouse[1] > 230 and mouse[1] < 280 and hraZacala=="Character":
                               rasa="Dwarf"
                         if mouse[0] > 210 and mouse[0] < 310 and mouse[1] > 110 and mouse[1] < 160 and hraZacala=="Character":
-                              typ="Warior"
+                              typ="Warrior"
                         if mouse[0] > 210 and mouse[0] < 310 and mouse[1] > 170 and mouse[1] < 220 and hraZacala=="Character":
                               typ="Ranger"
                         if mouse[0] > 210 and mouse[0] < 310 and mouse[1] > 230 and mouse[1] < 280 and hraZacala=="Character":
@@ -228,7 +434,13 @@ while True:
                               character()
                         if mouse[0] > 400 and mouse[0] < 800 and mouse[1] > 110 and mouse[1] < 160 and hraZacala=="Character":
                               zadavani=True
+                        if mouse[0] > 900 and mouse[0] < 1100 and mouse[1] > 10 and mouse[1] <  60 and hraZacala==True:
+                              if cisloHrace+1!=len(seznamHracu):
+                                    cisloHrace+=1
+                              else:
+                                    cisloHrace=0
       if hraZacala==True:
+            seznam=hracVypis(cisloHrace)
             if smer == 1:
                   if y+11>=len(list)*11+10:
                         if list[0][(x-10)//11]>3:
@@ -291,6 +503,15 @@ while True:
             else:
                   pygame.draw.rect(display, (0, 150, 0),(750,10,100,50))
             display.blit(textInGame,(755,10))
+            if mouse[0] > 900 and mouse[0] < 1100 and mouse[1] > 10 and mouse[1] < 60:
+                  pygame.draw.rect(display, (0, 255, 0),(900,10,200,50))
+            else:
+                  pygame.draw.rect(display, (0, 150, 0),(900,10,200,50))
+            display.blit(font3.render("Next Player",True,WHITE),(905,10))
+            poz=0
+            for i in seznam:
+                  display.blit(font3.render(i,True,WHITE),(755,70+poz))
+                  poz+=50
       elif hraZacala==False:
             if mouse[0] > 150 and mouse[0] < 250 and mouse[1] > 450 and mouse[1] < 500:
                   pygame.draw.rect(display, (0, 255, 0),(150,450,100,50))
@@ -341,7 +562,7 @@ while True:
                   pygame.draw.rect(display, (100, 100, 100),(100, 230, 100, 50))
             else:
                   pygame.draw.rect(display, ( 50,  50,  50),(100, 230, 100, 50))
-            if typ=="Warior":
+            if typ=="Warrior":
                   pygame.draw.rect(display, (100, 100, 100),(210, 110, 100, 50))
             else:
                   pygame.draw.rect(display, ( 50,  50,  50),(210, 110, 100, 50))
@@ -363,7 +584,8 @@ while True:
 
 
             fontChar=pygame.font.SysFont("comicsansms", 23)
-            display.blit(fontChar.render(zad,  True, WHITE), (400, 118))
+            display.blit(fontChar.render(zad,  True, WHITE), (400, 118))        
+            display.blit(fontChar.render(var,  True, WHITE), (400, 168))
             display.blit(fontChar.render("Human",  True, WHITE), (110, 118))
             display.blit(fontChar.render("Elf",    True, WHITE), (130, 178))
             display.blit(fontChar.render("Dwarf",  True, WHITE), (115, 238))
