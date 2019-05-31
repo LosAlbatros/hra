@@ -3,6 +3,8 @@ from mapGenerator import *
 # ---------- Třídy ----------
 class Hrac:
       def __init__(self,jmeno,rasa,typ,level,zivoty,zivoty2,mana,mana2,hlaska):
+            x=10
+            y=10
             self.jmeno=jmeno
             self.rasa=rasa
             self.typ=typ
@@ -26,6 +28,7 @@ class Hrac:
       def save(self):
             ulozHrace(self.jmeno,self.rasa,self.typ,self.level,self.zivoty,self.mana,self.hlaska)
       def __str__(self):
+            self.save()
             return self.jmeno + "\n" + self.rasa + "\n" + self.typ + "\n" + str(self.level) + "\n" + self.hlaska 
 # ---------- proměné ----------
 FPS=100
@@ -105,6 +108,10 @@ def mapa():
             else:
                   x=10
                   y+=11
+      global seznamHracu
+      for i in seznamHracu:
+            i.x=x
+            i.y=y
 
 def posledni(prom):
       a=len(prom)
@@ -436,9 +443,18 @@ while True:
                               zadavani=True
                         if mouse[0] > 900 and mouse[0] < 1100 and mouse[1] > 10 and mouse[1] <  60 and hraZacala==True:
                               if cisloHrace+1!=len(seznamHracu):
+                                    seznamHracu[cisloHrace].x=x
+                                    seznamHracu[cisloHrace].y=y
                                     cisloHrace+=1
+                                    x=seznamHracu[cisloHrace].x
+                                    y=seznamHracu[cisloHrace].y
+                                    print(seznamHracu[cisloHrace].jmeno+"-"+str(x)+":"+str(y))
                               else:
+                                    seznamHracu[cisloHrace].x=x
+                                    seznamHracu[cisloHrace].y=y
                                     cisloHrace=0
+                                    x=seznamHracu[cisloHrace].x
+                                    y=seznamHracu[cisloHrace].y
       if hraZacala==True:
             seznam=hracVypis(cisloHrace)
             if smer == 1:
