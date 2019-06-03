@@ -5,4 +5,6 @@ Warrior
 100
 0
 0
-""
+"Ha ha Smash It"
+0
+0,

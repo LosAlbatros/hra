@@ -1,8 +1,10 @@
-Human
+Elf
 Ranger
-1
-100
-100
-20
-20
-"I Shoot You"
+800
+169
+200
+18
+32
+"I See You"
+0
+1,
