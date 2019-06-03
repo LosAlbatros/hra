@@ -8,8 +8,16 @@ class Town:
             x=randint(1,20)
             self.jmeno=jmenaMest[x]
             self.hospod=randint(0,2)
+            self.itemsToSell=[]
+            for i in range(randint(0,4)):
+                  randomItem=randint(0,len(ItemsID.keys())-1)
+                  while randomItem in self.itemsToSell:
+                        randomItem=randint(0,len(ItemsID.keys())-1)
+                  self.itemsToSell.append(randomItem)
       def __str__(self):
             return self.jmeno + "\nTavern: " + str(self.hospod) +"\n"
+      def getItems(self):
+            return self.itemsToSell
 class Hrac:
       def __init__(self,jmeno,rasa,typ,level,zivoty,zivoty2,mana,mana2,hlaska,penize=0,inventar=[]):
             if jmeno in ["Albatros","TEST"]:
@@ -40,8 +48,8 @@ class Hrac:
                         self.zivoty=[100,100] 
                         self.mana=[0,0]
             else:
-                  self.zivoty=[zivoty,zivoty2] 
-                  self.mana=[mana,mana2]
+                  self.zivoty=[int(zivoty),int(zivoty2)] 
+                  self.mana=[int(mana),int(mana2)]
             self.hlaska=hlaska 
             if inventar not in [[],"",0]:
                   self.inventar=inventar
@@ -51,10 +59,28 @@ class Hrac:
                   self.presVodu=True
             if "1" in self.inventar:
                   self.pohyb+=5
+            if "2" in self.inventar:
+                  self.zivoty[0]+=50
+                  self.zivoty[1]+=50
+            if "3" in self.inventar:
+                  self.mana[0]+=50
+                  self.mana[1]+=50
             self.save()
 
       def save(self):
+            if "2" in self.inventar:
+                  self.zivoty[0]-=50
+                  self.zivoty[1]-=50
+            if "3" in self.inventar:
+                  self.mana[0]-=50
+                  self.mana[1]-=50
             ulozHrace(self.jmeno,self.rasa,self.typ,self.level,self.zivoty,self.mana,self.hlaska,self.inventar,self.penize)
+            if "2" in self.inventar:
+                  self.zivoty[0]+=50
+                  self.zivoty[1]+=50
+            if "3" in self.inventar:
+                  self.mana[0]+=50
+                  self.mana[1]+=50
 
       def getZivoty(self):
             return self.zivoty
@@ -219,6 +245,13 @@ def posledni(prom):
       prom2=""
       for i in range(a-1):
             prom2+=prom[i]
+      return prom2
+
+def odeberItem(prom,odeber):
+      prom2=[]
+      for i in range(len(prom)):
+            if prom[i]!=odeber:
+                  prom2.append(prom[i])
       return prom2
 
 
@@ -600,34 +633,82 @@ while True:
                                           if seznamHracu[cisloHrace].pohyb>1:
                                                 seznamHracu[cisloHrace].pohyb-=2
                                                 y=10
+                                                if "4" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
+                                                            seznamHracu[cisloHrace].zivoty[0]+=1
+                                                if "5" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].mana[0]+1<=seznamHracu[cisloHrace].mana[1]:
+                                                            seznamHracu[cisloHrace].mana[0]+=1
                                     else:
-                                          seznamHracu[cisloHrace].pohyb-=1
-                                          y=10
+                                                seznamHracu[cisloHrace].pohyb-=1
+                                                y=10
+                                                if "4" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
+                                                            seznamHracu[cisloHrace].zivoty[0]+=1
+                                                if "5" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].mana[0]+1<=seznamHracu[cisloHrace].mana[1]:
+                                                            seznamHracu[cisloHrace].mana[0]+=1
                               elif seznamHracu[cisloHrace].presVodu==True:
                                     if list[0][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
                                                 seznamHracu[cisloHrace].pohyb-=2
                                                 y=10
+                                                if "4" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
+                                                            seznamHracu[cisloHrace].zivoty[0]+=1
+                                                if "5" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].mana[0]+1<=seznamHracu[cisloHrace].mana[1]:
+                                                            seznamHracu[cisloHrace].mana[0]+=1
                                     else:
-                                          seznamHracu[cisloHrace].pohyb-=1
-                                          y=10
+                                                seznamHracu[cisloHrace].pohyb-=1
+                                                y=10
+                                                if "4" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
+                                                            seznamHracu[cisloHrace].zivoty[0]+=1
+                                                if "5" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].mana[0]+1<=seznamHracu[cisloHrace].mana[1]:
+                                                            seznamHracu[cisloHrace].mana[0]+=1
                         else:
                               if list[(y+1)//11][(x-10)//11]>3:
                                     if list[(y+1)//11][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
                                                 seznamHracu[cisloHrace].pohyb-=2
                                                 y+=11
+                                                if "4" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
+                                                            seznamHracu[cisloHrace].zivoty[0]+=1
+                                                if "5" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].mana[0]+1<=seznamHracu[cisloHrace].mana[1]:
+                                                            seznamHracu[cisloHrace].mana[0]+=1
                                     else:
-                                          seznamHracu[cisloHrace].pohyb-=1
-                                          y+=11
+                                                seznamHracu[cisloHrace].pohyb-=1
+                                                y+=11
+                                                if "4" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
+                                                            seznamHracu[cisloHrace].zivoty[0]+=1
+                                                if "5" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].mana[0]+1<=seznamHracu[cisloHrace].mana[1]:
+                                                            seznamHracu[cisloHrace].mana[0]+=1
                               elif seznamHracu[cisloHrace].presVodu==True:
                                     if list[(y+1)//11][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
                                                 seznamHracu[cisloHrace].pohyb-=2
                                                 y+=11
+                                                if "4" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
+                                                            seznamHracu[cisloHrace].zivoty[0]+=1
+                                                if "5" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].mana[0]+1<=seznamHracu[cisloHrace].mana[1]:
+                                                            seznamHracu[cisloHrace].mana[0]+=1
                                     else:
-                                          seznamHracu[cisloHrace].pohyb-=1
-                                          y+=11
+                                                seznamHracu[cisloHrace].pohyb-=1
+                                                y+=11
+                                                if "4" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
+                                                            seznamHracu[cisloHrace].zivoty[0]+=1
+                                                if "5" in seznamHracu[cisloHrace].inventar:
+                                                      if seznamHracu[cisloHrace].mana[0]+1<=seznamHracu[cisloHrace].mana[1]:
+                                                            seznamHracu[cisloHrace].mana[0]+=1
                         smer=False
                   # Pohyb směrem Dolů
 
@@ -882,6 +963,7 @@ while True:
             for i in seznamMest:
                   if i.sourednice==[(y-10)//11,(x-10)//11]:
                         mesto=i.__str__()
+                        mesto2=i.getItems()
             seznam=[]
             pomProm=""
             for i in mesto:
@@ -900,6 +982,25 @@ while True:
             else:
                   pygame.draw.rect(display, (  0,   0, 150),(60, 10, 100, 50))
             display.blit(font3.render("BACK",True,WHITE),(65,10))
+
+
+            for i in mesto2:
+                  if event.type == MOUSEBUTTONDOWN:
+                        if mouse[0] > 60 and mouse[0] < 360 and mouse[1] > 70+poz and mouse[1] < 70+poz+50:
+                              if seznamHracu[cisloHrace].penize>=cenaItemu[i]:
+                                    seznamHracu[cisloHrace].penize-=cenaItemu[i]
+                                    seznamHracu[cisloHrace].inventar.append(i)
+                                    for j in seznamMest:
+                                          if j.sourednice==[(y-10)//11,(x-10)//11]:
+                                                j.itemsToSell=odeberItem(j.itemsToSell,i)
+                                    seznamHracu[cisloHrace].save()
+                  if mouse[0] > 60 and mouse[0] < 360 and mouse[1] > 70+poz and mouse[1] < 70+poz+50:
+                        pygame.draw.rect(display, (  0,   0, 255),(60, 70+poz, 300, 50))
+                  else:
+                        pygame.draw.rect(display, (  0,   0, 150),(60, 70+poz, 300, 50))
+                  display.blit(font3.render(ItemsID[i],True,WHITE),(65,70+poz))
+                  poz+=60
+            
       pygame.display.update()
       clock.tick(FPS)
       ulozVse()

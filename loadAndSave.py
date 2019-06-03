@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from items import *
 def nactiJmenaHrace():
     try:
         load=open('data/jmenaHracu.txt')
