@@ -33,25 +33,46 @@ def nactiHrace(jmenoHrace):
     seznam=[]
     inventar=[]
     inv=""
+    equipped=[]
+    equip=""
+    equippedType=[]
+    eType=""
     for i in load.read():
         if i=="\n":
             if inventar != []:
                 seznam.append(inventar)
+                inventar=[]
+            elif equipped != []:
+                seznam.append(equipped)
+                equipped=[]
+            elif equippedType != []:
+                seznam.append(equippedType)
+                equippedType=[]
             else:
                 seznam.append(info)
             info=""
             inv=""
+            equip=""
+            eType=""
         elif i=="\"":
             pass
         elif i==",":
             inventar.append(inv)
             inv=""
+        elif i=="*":
+            equipped.append(equip)
+            equip=""
+        elif i==";":
+            equippedType.append(eType)
+            eType=""
         else:
             info+=i
             inv+=i
+            equip+=i
+            eType+=i
     return seznam
 
-def ulozHrace(jmeno,rasa,typ,level,zivoty,mana,hlaska,inventar,penize):
+def ulozHrace(jmeno,rasa,typ,level,zivoty,mana,hlaska,inventar,penize,equipped,equippedType):
     try:
         save=open('hraci/'+jmeno+".txt",'w')
     except:
@@ -60,4 +81,40 @@ def ulozHrace(jmeno,rasa,typ,level,zivoty,mana,hlaska,inventar,penize):
     for i in inventar:
         save.write(str(i)+",")
     save.write("\n")
+    for i in equipped:
+        save.write(str(i)+"*")
+    save.write("\n")
+    for i in equippedType:
+        save.write(str(i[0])+";")
+    save.write("\n")
     
+
+def nactiJmenaNPC():
+    try:
+        load=open('data/jmenaNPC.txt')
+    except:
+        load=open('generování map/data/jmenaNPC.txt')
+    list=[]
+    pomProm=""
+    for i in load.read():
+        if i=="\n":
+            list.append(pomProm)
+            pomProm=""
+        else: 
+            pomProm+=i
+    return list
+
+def nactiNPC(jmenoNPC):
+    try:
+        load=open('NPC/'+jmenoNPC+".txt",'r')
+    except:
+        load=open('generování map/NPC/'+jmenoNPC+".txt",'r')
+    info=""
+    seznam=[]
+    for i in load.read():
+        if i=="\n":
+            seznam.append(info)
+            info=""
+        else:
+            info+=i
+    return seznam
