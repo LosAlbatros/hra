@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-ItemsID   = {0:"Little Boat",1:"Walking Shoes",2:"Ring Of Life",3:"Ring Of Mana",4:"Ring Of Healing",5:"Mana Renewal Ring",6:"Knive",7:"Bow",8:"Stick of fire",9:"Sword",10:"Crossbow",11:"Hammer",12:"Axe"}
-cenaItemu = {0:50           ,1:100            ,2:200           ,3:200           ,4:500              ,5:400                ,6:20     ,7:50   ,8:1000           ,9:200    ,10:200       ,11:100     ,12:120  }
-ItemsType = {0:[0]          ,1:[1]            ,2:[2]           ,3:[2]           ,4:[2]              ,5:[2]                ,6:[3]    ,7:[4]  ,8:[3]            ,9:[3]    ,10:[4]       ,11:[4]     ,12:[3] }
+ItemsID   = {0:"Little Boat",1:"Walking Shoes",2:"Ring Of Life",3:"Ring Of Mana",4:"Ring Of Healing",5:"Mana Renewal Ring",6:"Knive",7:"Bow",8:"Stick of fire",9:"Sword",10:"Crossbow",11:"Hammer",12:"Axe",13:"Destroying Wand"}
+cenaItemu = {0:50           ,1:100            ,2:200           ,3:200           ,4:500              ,5:400                ,6:20     ,7:50   ,8:1000           ,9:200    ,10:200       ,11:100     ,12:120  ,13:5000}
+ItemsType = {0:[0]          ,1:[1]            ,2:[2]           ,3:[2]           ,4:[2]              ,5:[2]                ,6:[3]    ,7:[4]  ,8:[3]            ,9:[3]    ,10:[4]       ,11:[4]     ,12:[3]  ,13:[4]}
 # 0 = ostatní, 1 = boty, 2=Prsten(muže mít až 10 ale ne stejných), 3=jednoručná zbraň(muže mít až 2 ale ne stejných), 4=obouručná zbraň
+
+
+popisky={"Knife attack ":["-20 Enemy lives","-0 Your mana"],"Bow attack ":["-30 Enemy live","-0 Your mana"],"Stick strike ":["-20 Enemy lives","-0 Your mana"],"Firebolt ":["-25 Enemy live","-25 Your mana"],"Fireball ":["-50 Enemy lives","-60 Your mana"],"ignition ":["-35 Enemy lives","-40 Your mana"],"Sword swing ":["-40 Enemy lives","-0 Your mana"],"Crossbow shoot ":["-35 Enemy lives","-0 Your mana"],"Hammer slam ":["-30 Enemy lives","-0 Your mana"],"Axe slash ":["-30 Enemy lives","-0 Your mana"],"Destruction ":["-10000 Enemy lives","-5000 Your mana"],"Smash ":["-10 Enemy lives","-0 Your mana"]}

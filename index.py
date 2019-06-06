@@ -67,7 +67,7 @@ class NPC:
 
 class Hrac:
       def __init__(self,jmeno,rasa,typ,level,zivoty,zivoty2,mana,mana2,hlaska,penize=0,inventar=[],equipped=[],equippedtype=[0,0,0,0,0]):
-            self.attacks=["Smash -10lives"]
+            self.attacks=["Smash -10lives -0mana"]
             if jmeno in ["Albatros","TEST"]:
                   self.pohyb=9999999999999999999999999999999999999999900
                   self.presVodu=100
@@ -119,6 +119,8 @@ class Hrac:
             else:
                   self.zivoty=[int(zivoty),int(zivoty2)] 
                   self.mana=[int(mana),int(mana2)]
+            if self.zivoty[0]<=0:
+                  self.zivoty[0]=self.zivoty[1]
             self.hlaska=hlaska 
             self.inventar=[]
             if inventar not in [[],"",0]:
@@ -135,22 +137,24 @@ class Hrac:
                   self.mana[0]+=50
                   self.mana[1]+=50
             if 6 in self.equipped:
-                  self.attacks.append("Knife attack -20lives") 
+                  self.attacks.append("Knife attack -20lives -0mana") 
             if 7 in self.equipped:
-                  self.attacks.append("Bow attack -30lives") 
+                  self.attacks.append("Bow attack -30lives -0mana") 
             if 8 in self.equipped:
-                  self.attacks.append("Stick strike -20lives")
-                  self.attacks.append("Firebolt -25lives -25mana") 
-                  self.attacks.append("Fireball -50lives -60mana")
-                  self.attacks.append("ignition -35lives -40mana")
+                  self.attacks.append("Stick strike -20lives -0mana")
+                  self.attacks.append("Firebolt -25lives -25mana -0mana") 
+                  self.attacks.append("Fireball -50lives -60mana -0mana")
+                  self.attacks.append("ignition -35lives -40mana -0mana")
             if 9 in self.equipped:
-                  self.attacks.append("Sword swing -40lives") 
+                  self.attacks.append("Sword swing -40lives -0mana") 
             if 10 in self.equipped:
-                  self.attacks.append("Crossbow shoot -35lives") 
+                  self.attacks.append("Crossbow shoot -35lives -0mana") 
             if 11 in self.equipped:
-                  self.attacks.append("Hammer slam -30lives") 
+                  self.attacks.append("Hammer slam -30lives -0mana") 
             if 12 in self.equipped:
-                  self.attacks.append("Axe slash -30lives") 
+                  self.attacks.append("Axe slash -30lives -0mana") 
+            if 13 in self.equipped:
+                  self.attacks.append("Destruction -10000lives -5000mana")
             self.save()
             self.attack()
 
@@ -166,22 +170,24 @@ class Hrac:
                   self.mana[0]+=50
                   self.mana[1]+=50
             if ID==6:
-                  self.attacks.append("Knife attack -20lives") 
+                  self.attacks.append("Knife attack -20lives -0mana") 
             if ID==7:
-                  self.attacks.append("Bow attack -30lives") 
+                  self.attacks.append("Bow attack -30lives -0mana") 
             if ID==8:
-                  self.attacks.append("Stick strike -20lives")
+                  self.attacks.append("Stick strike -20lives -0mana")
                   self.attacks.append("Firebolt -25lives -25mana") 
                   self.attacks.append("Fireball -50lives -60mana")
                   self.attacks.append("ignition -35lives -40mana")
             if ID==9:
-                  self.attacks.append("Sword swing -40lives") 
+                  self.attacks.append("Sword swing -40lives -0mana") 
             if ID==10:
-                  self.attacks.append("Crossbow shoot -35lives") 
+                  self.attacks.append("Crossbow shoot -35lives -0mana") 
             if ID==11:
-                  self.attacks.append("Hammer slam -30lives") 
+                  self.attacks.append("Hammer slam -30lives -0mana") 
             if ID==12:
-                  self.attacks.append("Axe slash -30lives") 
+                  self.attacks.append("Axe slash -30lives -0mana") 
+            if ID==13:
+                  self.attacks.append("Destruction -10000lives -5000mana")
 
       def remuveBounus(self,ID):
             pomSez=[]
@@ -197,43 +203,49 @@ class Hrac:
                   self.mana[1]-=50
             if ID==6:
                   for i in self.attacks:
-                        if i!="Knife attack -20lives":
+                        if i!="Knife attack -20lives -0mana":
                               pomSez.append(i)
                   self.attacks=pomSez
                   pomSez=[]
             if ID==7:
                   for i in self.attacks:
-                        if i!="Bow attack -30lives":
+                        if i!="Bow attack -30lives -0mana":
                               pomSez.append(i)
                   self.attacks=pomSez
                   pomSez=[]
             if ID==8:
                   for i in self.attacks:
-                        if i not in ["Stick strike -20lives", "Firebolt -25lives -25mana", "Fireball -50lives -60mana", "ignition -35lives -40mana"]:
+                        if i not in ["Stick strike -20lives -0mana", "Firebolt -25lives -25mana", "Fireball -50lives -60mana", "ignition -35lives -40mana"]:
                               pomSez.append(i)
                   self.attacks=pomSez
                   pomSez=[]
             if ID==9:
                   for i in self.attacks:
-                        if i!="Sword swing -40lives":
+                        if i!="Sword swing -40lives -0mana":
                               pomSez.append(i)
                   self.attacks=pomSez
                   pomSez=[]
             if ID==10:
                   for i in self.attacks:
-                        if i!="Crossbow shoot -35lives":
+                        if i!="Crossbow shoot -35lives -0mana":
                               pomSez.append(i)
                   self.attacks=pomSez
                   pomSez=[]
             if ID==11:
                   for i in self.attacks:
-                        if i!="Hammer slam -30lives":
+                        if i!="Hammer slam -30lives -0mana":
                               pomSez.append(i)
                   self.attacks=pomSez
                   pomSez=[]
             if ID==12:
                   for i in self.attacks:
-                        if i!="Axe slash -30lives":
+                        if i!="Axe slash -30lives -0mana":
+                              pomSez.append(i)
+                  self.attacks=pomSez
+                  pomSez=[]
+            if ID==13:
+                  for i in self.attacks:
+                        if i!="Destruction -10000lives -5000mana":
                               pomSez.append(i)
                   self.attacks=pomSez
                   pomSez=[]
@@ -346,6 +358,49 @@ class Hrac:
                   c=""
                   d=0 
             return list
+
+      def getToAttack(self):
+            vypocet=1
+            self.level=int(self.level)
+            if self.level>=100000:
+                  vypocet=20
+            elif self.level>=50000:
+                  vypocet=19
+            elif self.level>=35000:
+                  vypocet=18
+            elif self.level>=30000:
+                  vypocet=17
+            elif self.level>=26000:
+                  vypocet=16
+            elif self.level>=22000:
+                  vypocet=15
+            elif self.level>=18000:
+                  vypocet=14
+            elif self.level>=15000:
+                  vypocet=13
+            elif self.level>=12000:
+                  vypocet=12
+            elif self.level>=10000:
+                  vypocet=11
+            elif self.level>=8000:
+                  vypocet=10
+            elif self.level>=6500:
+                  vypocet=9
+            elif self.level>=5000:
+                  vypocet=8
+            elif self.level>=3500:
+                  vypocet=7
+            elif self.level>=2500:
+                  vypocet=6
+            elif self.level>=1500:
+                  vypocet=5
+            elif self.level>=1000:
+                  vypocet=4
+            elif self.level>=500:
+                  vypocet=3
+            elif self.level>=200:
+                  vypocet=2
+            return ["Lives:"+str(self.zivoty[0])+"/"+str(self.zivoty[1]),"Mana:"+str(self.mana[0])+"/"+str(self.mana[1]),self.hlaska,"Level:"+str(vypocet),"XP:"+str(self.level)]
             
 
       def __str__(self):
@@ -394,13 +449,18 @@ class Hrac:
       def getItems(self):
             return [self.inventar,self.equipped]
 # ---------- proměné ----------
+hracNaUtok=False
+tah=1
+attackTo=0
 jmenaMest={1:"Town 1",2:"Town 2",3:"Town 3",4:"Town 4",5:"Town 5",6:"Town 6",7:"Town 7",8:"Town 8",9:"Town 9",10:"Town 10",11:"Town 11",12:"Town 12",13:"Town 13",14:"Town 14",15:"Town 15",16:"Town 16",17:"Town 17",18:"Town 18",19:"Town 19",20:"Town 20"}
 FPS=100
 rasa=""
 typ=""
 x=10
+naTahu=1
 y=10
 item=0
+pomProm=False
 eItem=0
 smer=False
 hraZacala=False
@@ -424,7 +484,13 @@ seznamJmenNPC=nactiJmenaNPC()
 seznamNPC=[]
 for i in seznamJmenNPC:
       seznamNPC.append(NPC(i,nactiNPC(i)[0],nactiNPC(i)[1],nactiNPC(i)[2],nactiNPC(i)[3],nactiNPC(i)[4],nactiNPC(i)[5],nactiNPC(i)[6]))
-
+min=0
+max=6
+add=0
+min2=0
+max2=6
+add2=0
+muzesDalsi=True
 # ---------- Funkce ----------  
 def ulozVse():
       globals
@@ -477,12 +543,20 @@ def doMesta():
       pygame.mixer.music.play(-1)
 
 
-def afterMove(num):
+def souboj(name):
+      try:
+            pygame.mixer.music.load('sounds/warmusic.wav')
+      except:
+            pygame.mixer.music.load('generování map/sounds/warmusic.wav')
+      global hraZacala, hracNaUtok
+      hraZacala="souboj"
+      pygame.mixer.music.play(-1)
+      hracNaUtok=name
+      
+
+
+def testVlastnosti(cisloHrace):
       global seznamHracu
-      global cisloHrace
-      global sound2
-      seznamHracu[cisloHrace].pohyb-=num
-      pygame.mixer.Sound.play(sound2)
       if 4 in seznamHracu[cisloHrace].equipped:
             if seznamHracu[cisloHrace].zivoty[0]+1<=seznamHracu[cisloHrace].zivoty[1]:
                   seznamHracu[cisloHrace].zivoty[0]+=1
@@ -491,8 +565,18 @@ def afterMove(num):
                   seznamHracu[cisloHrace].mana[0]+=1
 
 
+def afterMove(num):
+      global seznamHracu, cisloHrace, sound2, x, y
+      pomProm=0
+      seznamHracu[cisloHrace].pohyb-=num
+      pygame.mixer.Sound.play(sound2)
+      testVlastnosti(cisloHrace)
+      seznamHracu[cisloHrace].x=x
+      seznamHracu[cisloHrace].y=y
+      
+
 def mapa():
-      global list
+      global list, x, y, seznamHracu, seznamMest
       try:
             load=open('seznam.txt','r',encoding='utf8')
             load=load.read()
@@ -512,8 +596,6 @@ def mapa():
             else:
                   a+=i
       generate(list)
-      global x
-      global y
       x=10
       y=10
       while list[(y-10)//11][(x-10)//11]<4:
@@ -522,8 +604,6 @@ def mapa():
             else:
                   x=10
                   y+=11
-      global seznamHracu
-      global seznamMest
       for i in seznamHracu:
             i.x=x
             i.y=y
@@ -562,9 +642,9 @@ def odeberItem(prom,odeber):
       return prom2
 
 
+
 def hracVypis(cisloHrace):
-      global seznamHracu
-      global display
+      global seznamHracu, display
       a=seznamHracu[cisloHrace]
       z=""
       ret=[]
@@ -580,21 +660,25 @@ def hracVypis(cisloHrace):
 
 
 def nextPlayer():
-      global x
-      global y
-      global seznamHracu
-      global cisloHrace
-      global item
-      global eItem
-      global seznamMest
+      global x, y, seznamHracu, cisloHrace, item, eItem, seznamMest, add, add2, tah, attackTo
+      attackTo=0
       eItem=0
       item=0
       seznamHracu[cisloHrace].x=x
       seznamHracu[cisloHrace].y=y
-      if cisloHrace+1!=len(seznamHracu):
-            cisloHrace+=1
-      else: 
-            cisloHrace=0
+      add=0
+      add2=0
+      while True:
+            if cisloHrace+1!=len(seznamHracu):
+                  cisloHrace+=1
+            else: 
+                  cisloHrace=0
+            tah+=1
+            if seznamHracu[cisloHrace].zivoty[0]>0:
+                  break
+            else:
+                  seznamHracu[cisloHrace].x=0
+                  seznamHracu[cisloHrace].y=0
       x=seznamHracu[cisloHrace].x
       y=seznamHracu[cisloHrace].y
       if seznamHracu[cisloHrace].jmeno in ["Albatros","TEST"]:
@@ -970,15 +1054,64 @@ while True:
                               nextPlayer()
                               zacatekHry()
       if hraZacala==True:
+            for i in seznamMest:
+                  if i.sourednice[0]==seznamHracu[cisloHrace].x and i.sourednice[1]==seznamHracu[cisloHrace].y:
+                        pomProm=1
+            if pomProm!=1 and tah>len(seznamHracu)*2:
+                  pomSez=[]
+                  for i in seznamHracu:
+                        if i.x==seznamHracu[cisloHrace].x and i.y==seznamHracu[cisloHrace].y and i.jmeno!=seznamHracu[cisloHrace].jmeno:
+                              pomSez.append(i.jmeno)
+                  if len(pomSez)>1:
+                        if mouse[0]>750 and mouse[0]<1200 and mouse[1]>400 and mouse[1]<450:
+                              pygame.draw.rect(display,(0,255,0),(750,400,450,50))
+                              if event.type==MOUSEBUTTONDOWN:
+                                    if int(i.level)>=int(seznamHracu[cisloHrace].level):
+                                          naTahu=1
+                                    else:
+                                          naTahu=2
+                                    souboj(pomSez[attackTo])
+                        else:
+                              pygame.draw.rect(display,(0,200,0),(750,400,450,50))
+                        for i in range(len(pomSez)):
+                              display.blit(font3.render("Attack to "+pomSez[attackTo],True,(255,255,255)),(755,400))
+                              pygame.draw.rect(display,(0,0,0),(1200,400,150,50))           
+                              if mouse[0] > 1250 and mouse[0] < 1290 and mouse[1] > 400 and mouse[1] < 440:
+                                    pygame.draw.polygon(display, (0,255,0), [[40+1250,0+400],[40+1250,40+400],[0+1250,20+400]])
+                                    if event.type==MOUSEBUTTONDOWN:
+                                          if attackTo-1>=0:
+                                                attackTo-=1
+                                          
+                              else:
+                                    pygame.draw.polygon(display, (0,200,0), [[40+1250,0+400],[40+1250,40+400],[0+1250,20+400]])
+                              if mouse[0] > 1300 and mouse[0] < 1340 and mouse[1] > 400 and mouse[1] < 440:
+                                    pygame.draw.polygon(display, (0,255,0), [[0+1300,0+400],[0+1300,40+400],[40+1300,20+400]])
+                                    if event.type==MOUSEBUTTONDOWN:
+                                          if attackTo+1<len(pomSez):
+                                                attackTo+=1
+                              else:
+                                    pygame.draw.polygon(display, (0,200,0), [[0+1300,0+400],[0+1300,40+400],[40+1300,20+400]])
+                  elif len(pomSez)==1:
+                        if mouse[0]>750 and mouse[0]<1200 and mouse[1]>400 and mouse[1]<450:
+                              pygame.draw.rect(display,(0,255,0),(750,400,450,50))
+                              if event.type==MOUSEBUTTONDOWN:
+                                    if int(i.level)>=int(seznamHracu[cisloHrace].level):
+                                          naTahu=1
+                                    else:
+                                          naTahu=2
+                                    souboj(pomSez[attackTo])
+                        else:
+                              pygame.draw.rect(display,(0,200,0),(750,400,450,50))
+                        display.blit(font3.render("Attack to "+pomSez[attackTo],True,(255,255,255)),(755,400))
             if seznamHracu[cisloHrace].pohyb<=0:
                   nextPlayer()
             if list[(y-10)//11][(x-10)//11]==5:
                   if mouse[0] > 750 and mouse[0] < 900 and mouse[1] > 400 and mouse[1] < 450:
-                        pygame.draw.rect(display, (255, 255, 255),(750,400,150,50))
-                        display.blit(font3.render("To Town",True,(0,0,200)),(755,400))
+                        pygame.draw.rect(display, (  0, 255,  0),(750,400,150,50))
+                        display.blit(font3.render("To Town",True,WHITE),(755,400))
                   else:
-                        pygame.draw.rect(display, (200, 200, 200),(750,400,150,50))
-                        display.blit(font3.render("To Town",True,BLUE),(755,400))
+                        pygame.draw.rect(display, (  0, 200,  0),(750,400,150,50))
+                        display.blit(font3.render("To Town",True,(255,255,255)),(755,400))
 
             if seznamHracu[cisloHrace].pohyb>0:
                   if smer == 1:
@@ -989,34 +1122,33 @@ while True:
                                                 y=10
                                                 afterMove(2)
                                     else:
-                                                afterMove(1)
                                                 y=10
+                                                afterMove(1)
                               elif seznamHracu[cisloHrace].presVodu>0:
                                     if list[0][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                y=10
                                                 afterMove(2)
-                                                y=10
                                     else:
-                                                afterMove(1)
                                                 y=10
+                                                afterMove(1)
                         else:
                               if list[(y+1)//11][(x-10)//11]>3:
                                     if list[(y+1)//11][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                y+=11
                                                 afterMove(2)
-                                                y+=11
                                     else:
-                                                afterMove(1)
                                                 y+=11
+                                                afterMove(1)
                               elif seznamHracu[cisloHrace].presVodu>0:
                                     if list[(y+1)//11][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
-                                                afterMove(2)
                                                 y+=11
-                                                
+                                                afterMove(2)                                                
                                     else:
-                                                afterMove(1)
                                                 y+=11
+                                                afterMove(1)
                                                 
                         smer=False
                   # Pohyb směrem Dolů
@@ -1027,33 +1159,33 @@ while True:
                               if list[len(list)-1][(x-10)//11]>3:
                                     if list[len(list)-1][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                y=len(list)*11-1
                                                 afterMove(2)
-                                                y=len(list)*11-1
                                     else:
-                                                afterMove(1)
                                                 y=len(list)*11-1
+                                                afterMove(1)
                               elif seznamHracu[cisloHrace].presVodu>0:
                                     if list[len(list)-1][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                y=len(list)*11-1
                                                 afterMove(2)
-                                                y=len(list)*11-1
                                     else:
-                                                afterMove(1)
                                                 y=len(list)*11-1
+                                                afterMove(1)
                         else:
                               if list[(y-21)//11][(x-10)//11]>3:
                                     if list[(y-21)//11][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                y-=11
                                                 afterMove(2)
-                                                y-=11
                                     else:
-                                                afterMove(1)
                                                 y-=11
+                                                afterMove(1)
                               elif seznamHracu[cisloHrace].presVodu>0:
                                     if list[(y-21)//11][(x-10)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
-                                                afterMove(2)
                                                 y-=11
+                                                afterMove(2)
                                     else:
                                                 y-=11
                                                 afterMove(1)
@@ -1067,36 +1199,36 @@ while True:
                               if list[(y-10)//11][len(list)-1]>3:
                                     if list[(y-10)//11][len(list)-1]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                x=len(list)*11-1
                                                 afterMove(2)
-                                                x=len(list)*11-1
                                     else:
-                                                afterMove(1)
                                                 x=len(list)*11-1
+                                                afterMove(1)
                               elif seznamHracu[cisloHrace].presVodu>0:
                                     if list[(y-10)//11][len(list)-1]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                x=len(list)*11-1
                                                 afterMove(2)
-                                                x=len(list)*11-1
                                     else:
-                                                afterMove(1)
                                                 x=len(list)*11-1
+                                                afterMove(1)
                         else:
                               if list[(y-10)//11][(x-21)//11]>3:
                                     if list[(y-10)//11][(x-21)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>=2:
+                                                x-=11
                                                 afterMove(2)
-                                                x-=11
                                     else:
-                                                afterMove(1)
                                                 x-=11
+                                                afterMove(1)
                               elif seznamHracu[cisloHrace].presVodu>0:
                                     if list[(y-10)//11][(x-21)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>=2:
+                                                x-=11
                                                 afterMove(2)
-                                                x-=11
                                     else:
-                                                afterMove(1)
                                                 x-=11
+                                                afterMove(1)
                         smer=False
                   # Pohyb směrem Vleva
 
@@ -1106,36 +1238,36 @@ while True:
                               if list[(y-10)//11][0]>3:
                                     if list[(y-10)//11][0]>3>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                x=10
                                                 afterMove(2)
-                                                x=10
                                     else:
-                                                afterMove(1)
                                                 x=10
+                                                afterMove(1)
                               elif seznamHracu[cisloHrace].presVodu>0:
                                     if list[(y-10)//11][0]>3>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                x=10
                                                 afterMove(2)
-                                                x=10
                                     else:
-                                                afterMove(1)
                                                 x=10
+                                                afterMove(1)
                         else:
                               if list[(y-10)//11][(x+1)//11]>3:
                                     if list[(y-10)//11][(x+1)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                x+=11
                                                 afterMove(2)
-                                                x+=11
                                     else:
-                                                afterMove(1)
                                                 x+=11
+                                                afterMove(1)
                               elif seznamHracu[cisloHrace].presVodu>0:
                                     if list[(y-10)//11][(x+1)//11]>15:
                                           if seznamHracu[cisloHrace].pohyb>1:
+                                                x+=11
                                                 afterMove(2)
-                                                x+=11
                                     else:
-                                                afterMove(1)
                                                 x+=11
+                                                afterMove(1)
                         smer=False
                   # Pohyb směrem Vpravo
 
@@ -1398,6 +1530,233 @@ while True:
                         pygame.draw.rect(display, (  0,   0, 150),(60, 70+poz, 300, 50))
                   display.blit(font3.render(ItemsID[i],True,WHITE),(65,70+poz))
                   poz+=60
+      elif hraZacala=="souboj":
+            poz=0
+            poz2=0
+            pomSez=[]
+            display.blit(font3.render(seznamHracu[cisloHrace].jmeno,True,WHITE),(10,10))
+            for i in range(len(seznamHracu)):
+                  if seznamHracu[i].jmeno==hracNaUtok:
+                        pomSez.append(i)
+            jmeno=seznamHracu[pomSez[0]].jmeno
+            for i in seznamHracu[cisloHrace].getToAttack():
+                  display.blit(font3.render(str(i),True,WHITE),(300,10+poz))
+                  poz+=60
+            poz=0
+            if seznamHracu[pomSez[0]].zivoty[0]<=0 or seznamHracu[cisloHrace].zivoty[0]<=0:
+                  if seznamHracu[cisloHrace].zivoty[0]<=0:
+                        x=0
+                        y=0
+                  elif seznamHracu[pomSez[0]].zivoty[0]<=0:
+                        seznamHracu[pomSez[0]].x=0
+                        seznamHracu[pomSez[0]].y=0
+                  naTahu=1
+                  nextPlayer()
+                  zacatekHry()
+            if naTahu==1:
+                  if mouse[0] > 10 and mouse[0] < 260 and mouse[1] > 480 and mouse[1] < 530:
+                        pygame.draw.rect(display,(0,0,255),(10,480,250,50))
+                        if event.type == MOUSEBUTTONDOWN:
+                              if seznamHracu[cisloHrace].zivoty[0]+5<=seznamHracu[cisloHrace].zivoty[1]:
+                                    seznamHracu[cisloHrace].zivoty[0]+=5
+                              else:
+                                    seznamHracu[cisloHrace].zivoty[0]=seznamHracu[cisloHrace].zivoty[1]
+                              if seznamHracu[cisloHrace].mana[0]+10<=seznamHracu[cisloHrace].mana[1]:
+                                    seznamHracu[cisloHrace].mana[0]+=10
+                              else:
+                                    seznamHracu[cisloHrace].mana[0]=seznamHracu[cisloHrace].mana[1]
+                              testVlastnosti(pomSez[0])
+                              naTahu=2
+                  else:
+                        pygame.draw.rect(display,(0,0,200),(10,480,250,50))
+                  display.blit(font3.render("Pass",True,WHITE),(100,480))
+                  if mouse[0] > 270 and mouse[0] < 520 and mouse[1] > 480 and mouse[1] < 530:
+                        pygame.draw.rect(display,(0,0,255),(270,480,250,50))
+                        if event.type == MOUSEBUTTONDOWN:
+                              a=randint(0,2)
+                              seznamHracu[pomSez[0]].penize+=seznamHracu[cisloHrace].penize
+                              seznamHracu[cisloHrace].penize=0
+                              y=seznamMest[a].sourednice[0]*11+10
+                              x=seznamMest[a].sourednice[1]*11+10
+                              zacatekHry()  
+                              nextPlayer()
+                  else:
+                        pygame.draw.rect(display,(0,0,200),(270,480,250,50))
+                  display.blit(font3.render("Surrender",True,WHITE),(310,480))
+                  if len(seznamHracu[cisloHrace].attack())<8:
+                        for i in seznamHracu[cisloHrace].attack():
+                              pomText=str(i[0])
+                              if mouse[0] > 10 and mouse[0] < 260 and mouse[1] > 60+poz and mouse[1] < 110+poz:
+                                    pygame.draw.rect(display,(0,0,255),(10,60+poz,250,50))
+                                    pygame.draw.rect(display,(20,20,20),(10,550,650,200))
+                                    display.blit(font3.render(pomText,True,WHITE),(10,550))
+                                    display.blit(font3.render(popisky[pomText][0],True,WHITE),(10,600))
+                                    display.blit(font3.render(popisky[pomText][1],True,WHITE),(10,650))
+                                    if event.type == MOUSEBUTTONUP and muzesDalsi==False:
+                                          muzesDalsi=True
+                                    if event.type == MOUSEBUTTONDOWN and muzesDalsi==True:
+                                          muzesDalsi=False
+                                          if seznamHracu[cisloHrace].mana[0]+i[2]>=0:
+                                                seznamHracu[cisloHrace].mana[0]+=i[2]
+                                                seznamHracu[pomSez[0]].zivoty[0]+=i[1]
+                                                naTahu=2
+                              else:
+                                    pygame.draw.rect(display,(0,0,200),(10,60+poz,250,50))
+                              display.blit(font3.render(pomText,True,WHITE),(10,60+poz))
+                              poz+=60
+
+                  else:
+                        for i in range(len(seznamHracu[cisloHrace].attack())):
+                              if i>=min+add and i<max+add:
+                                    pomText=str(seznamHracu[cisloHrace].attack()[i][0])
+                                    if mouse[0] > 10 and mouse[0] < 260 and mouse[1] > 60+poz and mouse[1] < 110+poz:
+                                          pygame.draw.rect(display,(0,0,255),(10,60+poz,250,50))
+                                          pygame.draw.rect(display,(20,20,20),(10,550,650,200))
+                                          display.blit(font3.render(pomText,True,WHITE),(10,550))
+                                          display.blit(font3.render(popisky[pomText][0],True,WHITE),(10,600))
+                                          display.blit(font3.render(popisky[pomText][1],True,WHITE),(10,650))
+                                          if event.type == MOUSEBUTTONUP and muzesDalsi==False:
+                                                muzesDalsi=True
+                                          if event.type == MOUSEBUTTONDOWN and muzesDalsi==True:
+                                                muzesDalsi=False
+                                                if seznamHracu[cisloHrace].mana[0]+seznamHracu[cisloHrace].attack()[i][2]>=0:
+                                                      seznamHracu[cisloHrace].mana[0]+=seznamHracu[cisloHrace].attack()[i][2]
+                                                      seznamHracu[pomSez[0]].zivoty[0]+=seznamHracu[cisloHrace].attack()[i][1]
+                                                      naTahu=2
+                                    else:
+                                          pygame.draw.rect(display,(0,0,200),(10,60+poz,250,50))
+                                    display.blit(font3.render(pomText,True,WHITE),(10,60+poz))
+                                    poz+=60
+                        if mouse[0] > 65 and mouse[0] < 115 and mouse[1] > 420 and mouse[1] < 470:
+                              pygame.draw.polygon(display, (0,255,0), [[ 65,420],[115,420],[ 90,470]])
+                              if event.type == MOUSEBUTTONUP and muzesDalsi==False:
+                                    muzesDalsi=True
+                              if event.type == MOUSEBUTTONDOWN and muzesDalsi==True:
+                                    if max+add<len(seznamHracu[cisloHrace].attack()):
+                                          muzesDalsi=False
+                                          add+=1
+                        else:
+                              pygame.draw.polygon(display, (0,200,0), [[ 65,420],[115,420],[ 90,470]])
+                        if mouse[0] > 125 and mouse[0] < 175 and mouse[1] > 420 and mouse[1] < 470:
+                              pygame.draw.polygon(display, (0,255,0), [[125,470],[175,470],[150,420]])
+                              if event.type == MOUSEBUTTONUP and muzesDalsi==False:
+                                    muzesDalsi=True
+                              if event.type == MOUSEBUTTONDOWN and muzesDalsi==True:
+                                    if min+add>0:
+                                          muzesDalsi=False
+                                          add-=1
+                        else:
+                              pygame.draw.polygon(display, (0,200,0), [[125,470],[175,470],[150,420]])
+            # - První Bojovník (aktivní Hráč)
+
+
+                  pygame.draw.rect(display,BLACK,(700,0,9999,9999))
+                  display.blit(font3.render(jmeno,True,WHITE),(710,10))
+            
+                  for i in seznamHracu[pomSez[0]].getToAttack():
+                        display.blit(font3.render(str(i),True,WHITE),(1010,10+poz2))
+                        poz2+=60
+            elif naTahu==2:
+                  pygame.draw.rect(display,BLACK,(700,0,9999,9999))
+                  if mouse[0] > 710 and mouse[0] < 960 and mouse[1] > 480 and mouse[1] < 530:
+                        pygame.draw.rect(display,(0,0,255),(710,480,250,50))
+                        if event.type == MOUSEBUTTONDOWN:
+                              if seznamHracu[pomSez[0]].zivoty[0]+5<=seznamHracu[pomSez[0]].zivoty[1]:
+                                    seznamHracu[pomSez[0]].zivoty[0]+=5
+                              else:
+                                    seznamHracu[pomSez[0]].zivoty[0]=seznamHracu[pomSez[0]].zivoty[1]
+                              if seznamHracu[pomSez[0]].mana[0]+10<=seznamHracu[pomSez[0]].mana[1]:
+                                    seznamHracu[pomSez[0]].mana[0]+=10
+                              else:
+                                    seznamHracu[pomSez[0]].mana[0]=seznamHracu[pomSez[0]].mana[1]
+                              testVlastnosti(pomSez[0])
+                              naTahu=1
+                  else:
+                        pygame.draw.rect(display,(0,0,200),(710,480,250,50))
+                  display.blit(font3.render("Pass",True,WHITE),(800,480))
+                  if mouse[0] > 970 and mouse[0] < 1220 and mouse[1] > 480 and mouse[1] < 530:
+                        pygame.draw.rect(display,(0,0,255),(970,480,250,50))
+                        if event.type == MOUSEBUTTONDOWN:
+                              a=randint(0,2)
+                              seznamHracu[cisloHrace].penize+=seznamHracu[pomSez[0]].penize
+                              seznamHracu[pomSez[0]].penize=0
+                              seznamHracu[pomSez[0]].y=seznamMest[a].sourednice[0]*11+10
+                              seznamHracu[pomSez[0]].x=seznamMest[a].sourednice[1]*11+10
+                              zacatekHry()  
+                              nextPlayer()
+                  else:
+                        pygame.draw.rect(display,(0,0,200),(970,480,250,50))
+                  display.blit(font3.render("Surrender",True,WHITE),(1010,480))
+                  display.blit(font3.render(jmeno,True,WHITE),(710,10))
+            
+                  for i in seznamHracu[pomSez[0]].getToAttack():
+                        display.blit(font3.render(str(i),True,WHITE),(1010,10+poz2))
+                        poz2+=60
+                  poz2=0
+                  if len(seznamHracu[pomSez[0]].attack())<8:
+                        for i in range(len(seznamHracu[pomSez[0]].attack())):
+                              pomText=str(seznamHracu[pomSez[0]].attack()[i][0])
+                              if mouse[0] > 710 and mouse[0] < 960 and mouse[1] > 60+poz2 and mouse[1] < 110+poz2:
+                                    pygame.draw.rect(display,(0,0,255),(710,60+poz2,250,50))
+                                    pygame.draw.rect(display,(20,20,20),(710,550,650,200))
+                                    display.blit(font3.render(pomText,True,WHITE),(710,550))
+                                    display.blit(font3.render(popisky[pomText][0],True,WHITE),(710,600))
+                                    display.blit(font3.render(popisky[pomText][1],True,WHITE),(710,650))
+                                    if event.type == MOUSEBUTTONUP and muzesDalsi==False:
+                                          muzesDalsi=True
+                                    if event.type == MOUSEBUTTONDOWN and muzesDalsi==True:
+                                          muzesDalsi=False
+                                          if seznamHracu[pomSez[0]].mana[0]+seznamHracu[pomSez[0]].attack()[i][2]>=0:
+                                                seznamHracu[pomSez[0]].mana[0]+=seznamHracu[pomSez[0]].attack()[i][2]
+                                                seznamHracu[cisloHrace].zivoty[0]+=seznamHracu[pomSez[0]].attack()[i][1]
+                                                naTahu=1
+                              else:
+                                    pygame.draw.rect(display,(0,0,200),(710,60+poz2,250,50))
+                              display.blit(font3.render(pomText,True,WHITE),(710,60+poz2))
+                              poz2+=60
+                  else:
+                        for i in range(len(seznamHracu[pomSez[0]].attack())):
+                              if i>=min+add2 and i<max+add2:
+                                    pomText=str(seznamHracu[pomSez[0]].attack()[i][0])
+                                    if mouse[0] > 710 and mouse[0] < 960 and mouse[1] > 60+poz2 and mouse[1] < 110+poz2:
+                                          pygame.draw.rect(display,(0,0,255),(710,60+poz2,250,50))
+                                          pygame.draw.rect(display,(20,20,20),(710,550,650,200))
+                                          display.blit(font3.render(pomText,True,WHITE),(710,550))
+                                          display.blit(font3.render(popisky[pomText][0],True,WHITE),(710,600))
+                                          display.blit(font3.render(popisky[pomText][1],True,WHITE),(710,650))
+                                          if event.type == MOUSEBUTTONUP and muzesDalsi==False:
+                                                muzesDalsi=True
+                                          if event.type == MOUSEBUTTONDOWN and muzesDalsi==True:
+                                                muzesDalsi=False
+                                                if seznamHracu[pomSez[0]].mana[0]+seznamHracu[pomSez[0]].attack()[i][2]>=0:
+                                                      seznamHracu[pomSez[0]].mana[0]+=seznamHracu[pomSez[0]].attack()[i][2]
+                                                      seznamHracu[cisloHrace].zivoty[0]+=seznamHracu[pomSez[0]].attack()[i][1]
+                                                      naTahu=1
+                                    else:
+                                          pygame.draw.rect(display,(0,0,200),(710,60+poz2,250,50))
+                                    display.blit(font3.render(pomText,True,WHITE),(710,60+poz2))
+                                    poz2+=60
+                        if mouse[0] >775 and mouse[0] <825 and mouse[1] > 420 and mouse[1] < 470:
+                              pygame.draw.polygon(display, (0,255,0), [[775,420],[825,420],[800,470]])
+                              if event.type == MOUSEBUTTONUP and muzesDalsi==False:
+                                    muzesDalsi=True
+                              if event.type == MOUSEBUTTONDOWN and muzesDalsi==True:
+                                    if max+add2<len(seznamHracu[pomSez[0]].attack()):
+                                          muzesDalsi=False
+                                          add2+=1
+                        else:
+                              pygame.draw.polygon(display, (0,200,0), [[775,420],[825,420],[800,470]])
+                        if mouse[0] > 835 and mouse[0] < 885 and mouse[1] > 420 and mouse[1] < 470:
+                              pygame.draw.polygon(display, (0,255,0), [[835,470],[885,470],[860,420]])
+                              if event.type == MOUSEBUTTONUP and muzesDalsi==False:
+                                    muzesDalsi=True
+                              if event.type == MOUSEBUTTONDOWN and muzesDalsi==True:
+                                    if min+add2>0:
+                                          muzesDalsi=False
+                                          add2-=1
+                        else:
+                              pygame.draw.polygon(display, (0,200,0), [[835,470],[885,470],[860,420]])      
+            # - Druhý bojovník (Hráč, kterého si aktivní hráč vybral)
             
       pygame.display.update()
       clock.tick(FPS)
