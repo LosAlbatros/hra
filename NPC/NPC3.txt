@@ -1,7 +1,9 @@
-Elf
-Ranger
-1500
-240
-240
-40
-40
+Morgan
+Human
+Wizzard
+8500
+800
+800
+1000
+1000
+I'm powerful

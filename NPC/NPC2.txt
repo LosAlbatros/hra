@@ -1,7 +1,9 @@
-Dwarf
-Warrior
-500
-200
-200
-10
-10
+Shooter
+Elf
+Ranger
+1500
+240
+240
+40
+40
+I see you

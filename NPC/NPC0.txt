@@ -1,0 +1,9 @@
+Pirate
+Human
+Warrior
+1
+100
+100
+0
+0
+Arrr
